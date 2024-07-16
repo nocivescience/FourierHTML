@@ -6,23 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fourier Transform Drawing with Epicycles</title>
 </head>
-<style>
-    body{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-        background-color: #f0f0f0;
-    }
-    canvas{
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    }
-</style>
+
 <body>
-    <h1>By Ricci Aani</h1>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.3/p5.min.js"
         integrity="sha512-0zGLOFv/+OQ6YfVCSGDQWhrDRx0ONmBqWvs3gI4olm8i6xtKoG1FhEnB4eTaWCVnojyfUDgE8Izeln+mAJAkFA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -87,6 +72,24 @@
         }
 
         function mousePressed() {
+            startDrawing();
+        }
+
+        function mouseReleased() {
+            endDrawing();
+        }
+
+        function touchStarted() {
+            startDrawing();
+            return false; // Prevent default touch behavior
+        }
+
+        function touchEnded() {
+            endDrawing();
+            return false; // Prevent default touch behavior
+        }
+
+        function startDrawing() {
             state = USER;
             drawing = [];
             x = [];
@@ -95,7 +98,7 @@
             speedFactor = 1;
         }
 
-        function mouseReleased() {
+        function endDrawing() {
             state = FOURIER;
             const skip = 1;
             for (let i = 0; i < drawing.length; i += skip) {
